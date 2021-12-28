@@ -18,20 +18,14 @@ const App = () => {
   const [isInStock, setIsInStock] = React.useState(false);
 
   React.useEffect(() => {
+    const matchedData = data.filter((o) => o.name.toLocaleLowerCase().includes(search.toLowerCase()));
     if(isInStock) {
-      setFilterData(data.filter((o) => o.stocked === true));
+      setFilterData(matchedData.filter((o) => o.stocked === true));
     } else {
-      setFilterData(data);
+      setFilterData(matchedData);
     }
-  }, [isInStock]);
-
-  React.useEffect(() => {
-    if (data.find((o) => o.name === search)) {
-      setFilterData(data.filter((o) => o.name === search));
-    } else {
-      setFilterData(data);
-    }
-  }, [search]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search, isInStock]);
 
   return(
     <div>
